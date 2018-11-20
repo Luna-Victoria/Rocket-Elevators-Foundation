@@ -1,0 +1,54 @@
+   <div id="map" style="height:100%; width:100%;"></div>
+       
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoOgcmhi_BkYxGmoUDjF4dmmN2yz2mYKY&callback=initMap">
+        </script>
+
+    <script>
+      function initMap() {
+        center_psn = {lat: 46.829853, lng: -71.254028};
+        map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 5,
+        center: center_psn,
+        });
+        
+        <% @points_list.each_with_index do |lp| %>
+            lat = <%= lp[:lat] %>;
+            long = <%= lp[:long] %>;
+            var myLatLng = {lat: lat, lng: long};
+            var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+            });
+
+            var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading"> <%= lp[:name] %></h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Address: </b> <%= lp[:address] %></br>' +
+            '<b>Number of Floors: </b> <%= lp[:floors] %></br>' +
+            '<b>Client Name: </b> <%= lp[:client] %></br>' +
+            '<b>Number of Batteries: </b> <%= lp[:battery] %></br>' +
+            '<b>Number of Columns:</b> <%= lp[:column] %></br>' +
+            '<b>Number of Elevators:</b> <%= lp[:elevator] %></br>' +
+            '<b>Technician Name: </b> <%= lp[:technician] %></p>' +
+            '</div>'+
+            '</div>';
+
+            marker.infowindow = new google.maps.InfoWindow({
+            content: contentString
+            });
+
+            var previous = false;
+            marker.addListener('click', function() {
+                if(previous) {
+                    previous.close()
+                }
+                previous = this.infowindow;
+                this.infowindow.open(map, this);
+            });
+            
+        <% end %>
+      }
+    </script>

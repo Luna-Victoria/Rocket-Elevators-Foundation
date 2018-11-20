@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: 46.254028, lng: -71.829853};
+        var mysecond = {lat: 50.2, lng: -69.99};
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoOgcmhi_BkYxGmoUDjF4dmmN2yz2mYKY&callback=initMap">
+    </script>
+  </body>
+</html>
+
+
+// var psn = {lat: '<%= @liste_points[:lat] %>', lng: '<%= @liste_points[:long] %>'};
+
+var psn = {lat: '<%= @liste_points[:lat] %>', lng: '<%= @liste_points[:long] %>'};
+for (i = 0; i < locations.length; i++) {  
+    var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    map: map
+});
+
+<%= @liste_points.length %>

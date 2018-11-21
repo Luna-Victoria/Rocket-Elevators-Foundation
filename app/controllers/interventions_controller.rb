@@ -1,5 +1,5 @@
 class InterventionsController < ApplicationController
-  before_action :set_intervention, only: [:show, :edit, :update, :delete]
+  before_action :set_intervention, only: [:show, :edit, :update, :destroy]
 
   # GET /interventions
   # GET /interventions.json
@@ -41,7 +41,6 @@ class InterventionsController < ApplicationController
   # POST /interventions.json
   def create
     @intervention = Intervention.new(intervention_params)
-    puts @intervention
     
     respond_to do |format|
       if @intervention.save
@@ -52,7 +51,6 @@ class InterventionsController < ApplicationController
         format.json { render json: @intervention.errors, status: :unprocessable_entity }
       end
     end
-    
 
     comment = { :value => "The contact # #{@intervention.author}
     from company # #{@intervention.customer.business_name} 
@@ -85,10 +83,10 @@ class InterventionsController < ApplicationController
 
   # DELETE /interventions/1
   # DELETE /interventions/1.json
-  def delete
-    @intervention.delete
+  def destroy
+    @intervention.destroy
     respond_to do |format|
-      format.html { redirect_to interventions_url, notice: 'Intervention was successfully deleted.' }
+      format.html { redirect_to interventions_url, notice: 'Intervention was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

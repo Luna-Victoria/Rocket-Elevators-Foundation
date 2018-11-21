@@ -30,12 +30,12 @@ class InterventionsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "destroying a Intervention" do
+  test "deleting a Intervention" do
     visit interventions_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
-    assert_text "Intervention was successfully destroyed"
+    assert_text "Intervention was successfully deleted"
   end
 end

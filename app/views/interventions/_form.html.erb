@@ -7,6 +7,11 @@
         <div class="row-fluid text-center">
           <span class="border">
           <%= form_for(@intervention) do |f| %>
+            <% if intervention.errors.any? %>
+                <div id="error_explanation">
+                    <h3><% pluralize(intervention.errors.count, "error") %> Error! We prohibited this intervention from being saved.<br /> Please try again later.</h3>
+                </div>
+            <% end %>
 
             <div class="col-md-12">
               <div>
@@ -46,7 +51,7 @@
             
               <div>
                   <%= f.label :employee_id %>
-                  <%= f.collection_select :author, Employee.all.order(:first_name), :id, :name, { prompt: 'Please select' } %>
+                  <%= f.collection_select :employee_id, Employee.all.order(:first_name), :id, :name, { prompt: 'Please select' } %>
               </div>
 
               <br />

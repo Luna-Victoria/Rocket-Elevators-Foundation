@@ -38,7 +38,7 @@ class InterventionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to intervention_url(@intervention)
   end
 
-  test "should destroy intervention" do
+  test "should delete intervention" do
     assert_difference('Intervention.count', -1) do
       delete intervention_url(@intervention)
     end

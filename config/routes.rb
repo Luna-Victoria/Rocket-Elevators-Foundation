@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   
+  resources :tests
   resources :interventions
   devise_for :users, :controllers => { registrations: 'registrations' }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   get 'filter_elevators_by_column' => 'interventions#filter_elevators_by_column'
   get 'filter_columns_by_battery' => 'interventions#filter_columns_by_battery'
   get 'filter_batteries_by_building' => 'interventions#filter_batteries_by_building'
-  get '/filter_buildings_by_customer' => 'interventions#filter_buildings_by_customer'
+  get 'filter_buildings_by_customer' => 'interventions#filter_buildings_by_customer'
   
 
  

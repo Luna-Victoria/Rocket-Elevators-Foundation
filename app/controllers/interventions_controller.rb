@@ -1,5 +1,5 @@
 class InterventionsController < ApplicationController
-  before_action :set_intervention, only: [:show, :edit, :update, :destroy]
+  before_action :set_intervention, only: [:show, :edit, :update, :delete]
 
   # GET /interventions
   # GET /interventions.json
@@ -40,22 +40,19 @@ class InterventionsController < ApplicationController
   # POST /interventions
   # POST /interventions.json
   def create
-    intervention = Intervention.new(intervention_params)
+    @intervention = Intervention.new(intervention_params)
+    puts @intervention
     
-
     respond_to do |format|
-      if intervention.save
-        format.html { redirect_to intervention, notice: 'Intervention was successfully created.' }
-        format.json { render :show, status: :created, location: intervention }
+      if @intervention.save
+        format.html { redirect_to @intervention, notice: 'Intervention was successfully created.' }
+        format.json { render :show, status: :created, location: @intervention }
       else
         format.html { render :new }
-        format.json { render json: intervention.errors, status: :unprocessable_entity }
+        format.json { render json: @intervention.errors, status: :unprocessable_entity }
       end
     end
-    create_ticket(intervention)
-  end
-
-  def create_ticket(intervention)
+    
 
     comment = { :value => "The contact # #{@intervention.author}
     from company # #{@intervention.customer.business_name} 
@@ -64,11 +61,9 @@ class InterventionsController < ApplicationController
     in the battery # #{@intervention.battery_id},
     in the building # #{@intervention.building_id} (#{@intervention.building.building_name})."}
 
-
     ticket = ZendeskAPI::Ticket.new($client, :type => "Support", :priority => "urgent",
-        :subject => "#{@intervention.author} from #{@intervention.customer.business_name}",
-        :comment => comment    
-    )
+      :subject => "#{@intervention.author} from #{@intervention.customer.business_name}",
+      :comment => comment)
 
     ticket.save!
 
@@ -78,7 +73,7 @@ class InterventionsController < ApplicationController
   # PATCH/PUT /interventions/1.json
   def update
     respond_to do |format|
-      if intervention.update(intervention_params)
+      if @intervention.update(intervention_params)
         format.html { redirect_to @intervention, notice: 'Intervention was successfully updated.' }
         format.json { render :show, status: :ok, location: @intervention }
       else
@@ -90,10 +85,10 @@ class InterventionsController < ApplicationController
 
   # DELETE /interventions/1
   # DELETE /interventions/1.json
-  def destroy
-    @intervention.destroy
+  def delete
+    @intervention.delete
     respond_to do |format|
-      format.html { redirect_to interventions_url, notice: 'Intervention was successfully destroyed.' }
+      format.html { redirect_to interventions_url, notice: 'Intervention was successfully deleted.' }
       format.json { head :no_content }
     end
   end
@@ -106,6 +101,6 @@ class InterventionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def intervention_params
-      params.require(:intervention).permit(:customer_id, :building_id, :battery_id, :column_id, :elevator_id, :employee_id, :report, :description)
+      params.require(:intervention).permit(:author, :customer_id, :building_id, :battery_id, :column_id, :elevator_id, :starting_date, :ending_date, :employee_id, :report, :status)
     end
 end

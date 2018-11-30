@@ -46,8 +46,19 @@
       <label>Please enter your phone number:</label>
     </div>
     <div class="slidecontainer text-center">
-      <input type="range" min="10000000000" max="19999999999" value="" class="slider" id="myRange">
+      <input type="range" min="4180000000" max="4189999999" value="" class="slider" id="myRange">
       <p> <span id="demo"></span></p>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="width: auto" >
+    <div class="row-fluid text-center">
+      &nbsp
+      <label>Please enter your phone number:</label>
+    </div>
+    <div class="slidecontainer text-center">
+      <input type="range" min="5810000000" max="5819999999" value="" class="slider" id="myRange2">
+      <p> <span id="demo2"></span></p>
     </div>
   </div>
   
@@ -59,6 +70,14 @@
 
   slider.oninput = function() {
     output.innerHTML = this.value;
+  }
+
+  var slider2 = document.getElementById("myRange2");
+  var output2 = document.getElementById("demo2");
+  output.innerHTML = slider2.value;
+
+  slider2.oninput = function() {
+    output2.innerHTML = this.value;
   }
   </script>
 

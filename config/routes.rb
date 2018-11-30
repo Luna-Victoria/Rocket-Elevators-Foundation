@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   
+  resources :interventions, except: :edit
   resources :tests
-  resources :interventions
   devise_for :users, :controllers => { registrations: 'registrations' }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get '/residential' =>'home#residential'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'filter_columns_by_battery' => 'interventions#filter_columns_by_battery'
   get 'filter_batteries_by_building' => 'interventions#filter_batteries_by_building'
   get 'filter_buildings_by_customer' => 'interventions#filter_buildings_by_customer'
-  delete '/Destroy' => 'interventions#destroy'
+  
   
 
  

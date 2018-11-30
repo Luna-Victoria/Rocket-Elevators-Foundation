@@ -1,6 +1,7 @@
 class InterventionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_intervention, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /interventions
   # GET /interventions.json
   def index
@@ -41,6 +42,8 @@ class InterventionsController < ApplicationController
   # POST /interventions.json
   def create
     @intervention = Intervention.new(intervention_params)
+    @intervention.author = current_user.employee.id
+    
     
     respond_to do |format|
       if @intervention.save
@@ -81,6 +84,13 @@ class InterventionsController < ApplicationController
     end
   end
 
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_intervention
+      @intervention = Intervention.find(params[:id])
+    end
+
   # DELETE /interventions/1
   # DELETE /interventions/1.json
   def destroy
@@ -90,12 +100,6 @@ class InterventionsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_intervention
-      @intervention = Intervention.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def intervention_params

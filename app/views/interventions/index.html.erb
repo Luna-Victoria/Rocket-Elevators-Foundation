@@ -14,13 +14,38 @@
   <tbody>
     <% @interventions.each do |intervention| %>
       <tr>
-        <td><%= link_to 'Show', intervention %></td>
-        <td><%= link_to 'Edit', edit_intervention_path(intervention) %></td>
-        <td><%= link_to 'Destroy', intervention, method: :destroy, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+        <%= intervention.id %>
+        <td>
+        &nbsp
+        <td>
+        <%= intervention.customer.business_name %>
+        <td>
+        &nbsp
+        <td>
+        <%= intervention.building.building_name %>
+        <td>
+        &nbsp
+        <td> 
+        Report: <%= intervention.report %>
+        <td>
+        &nbsp
+        <td>
+        Status: <%= intervention.status %>
+        <td>
+        &nbsp
+        <td>
+        Starting Date: <%= intervention.starting_date %>
+        <td>
+        &nbsp
+        <td>
+        Ending Date: <%= intervention.ending_date %>
+        <td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
 
 <br>
 

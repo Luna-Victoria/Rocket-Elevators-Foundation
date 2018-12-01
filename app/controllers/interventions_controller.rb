@@ -8,6 +8,8 @@ class InterventionsController < ApplicationController
     @interventions = Intervention.all
   end
 
+  
+  # Dynamic select menu
   def filter_elevators_by_column
     @filtered_elevators = Elevator.where(column_id: params[:selected_column])
   end
@@ -23,6 +25,7 @@ class InterventionsController < ApplicationController
   def filter_buildings_by_customer
     @filtered_buildings = Building.where(customer_id: params[:selected_customer])
   end
+
 
   # GET /interventions/1
   # GET /interventions/1.json
@@ -43,8 +46,8 @@ class InterventionsController < ApplicationController
   def create
     @intervention = Intervention.new(intervention_params)
     @intervention.author = current_user.employee.id
-    
-    
+     
+
     respond_to do |format|
       if @intervention.save
         format.html { redirect_to @intervention, notice: 'Intervention was successfully created.' }
@@ -55,12 +58,18 @@ class InterventionsController < ApplicationController
       end
     end
 
-    comment = { :value => "The contact # #{@intervention.author}
-    from company # #{@intervention.customer.business_name} 
-    has create a intervention for the elevator # #{@intervention.elevator_id} 
-    from the column # #{@intervention.column_id}, 
-    in the battery # #{@intervention.battery_id},
-    in the building # #{@intervention.building_id} (#{@intervention.building.building_name})."}
+
+    # Zendesk controller
+    comment = { :value => 
+    "Welcome. 
+    
+    The employee #{current_user.employee.first_name} #{current_user.employee.last_name} from company #{@intervention.customer.business_name} 
+    has create a intervention for the building # #{@intervention.building_id} (#{@intervention.building.building_name}), 
+    in the battery # #{@intervention.battery_id}, from the column # #{@intervention.column_id}, for the elevator # #{@intervention.elevator_id}. 
+    The employee #{@intervention.employee.first_name} #{@intervention.employee.last_name} has been selected for the work.
+    Please read the following report: #{@intervention.report} 
+
+    Thank you!"}
 
     ticket = ZendeskAPI::Ticket.new($client, :type => "Support", :priority => "urgent",
       :subject => "#{@intervention.author} from #{@intervention.customer.business_name}",

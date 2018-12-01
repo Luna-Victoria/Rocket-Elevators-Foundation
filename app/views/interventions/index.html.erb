@@ -1,52 +1,44 @@
-<p id="notice"><%= notice %></p>
 
 <div class="heading-title heading-dotted text-center">
   <h2>Interventions</h2>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row-fluid text-center">
 
-  <tbody>
-    <% @interventions.each do |intervention| %>
+  <table border="1", align="center">
+    <thead>
       <tr>
-        <td>
-        <%= intervention.id %>
-        <td>
-        &nbsp
-        <td>
-        <%= intervention.customer.business_name %>
-        <td>
-        &nbsp
-        <td>
-        <%= intervention.building.building_name %>
-        <td>
-        &nbsp
-        <td> 
-        Report: <%= intervention.report %>
-        <td>
-        &nbsp
-        <td>
-        Status: <%= intervention.status %>
-        <td>
-        &nbsp
-        <td>
-        Starting Date: <%= intervention.starting_date %>
-        <td>
-        &nbsp
-        <td>
-        Ending Date: <%= intervention.ending_date %>
-        <td>
+        <th>Id</th>
+        <th>Company</th>
+        <th>Building</th>
+        <th>Report</th>
+        <th>Employee</th>
+        <th>Status</th>
+        <th>Starting Date</th>
+        <th>Ending Date</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @interventions.each do |intervention| %>
+        <tr>
+          <td><%= intervention.id %></td>
+          <td><%= intervention.customer.business_name %></td>
+          <td><%= intervention.building.building_name %></td>
+          <td><%= intervention.report %></td>
+          <td><%= intervention.employee.first_name%>&nbsp<%= intervention.employee.last_name%>
+          <td><%= intervention.status %></td>
+          <td><%= intervention.starting_date %></td>
+          <td><%= intervention.ending_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<br>
+  <div class="actions">
+    <%= link_to 'Create a New Intervention', new_intervention_path %>
+  </div>
+  &nbsp
+  &nbsp
 
-<%= link_to 'New Intervention', new_intervention_path %>
+</div>

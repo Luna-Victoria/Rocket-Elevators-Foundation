@@ -63,8 +63,8 @@ class InterventionsController < ApplicationController
     comment = { :value => 
     "Welcome. 
     
-    The employee #{current_user.employee.first_name} #{current_user.employee.last_name} from company #{@intervention.customer.business_name} 
-    has create a intervention for the building # #{@intervention.building_id} (#{@intervention.building.building_name}), 
+    The employee #{current_user.employee.first_name} #{current_user.employee.last_name} has create a intervention for the 
+    company #{@intervention.customer.business_name} building # #{@intervention.building_id} (#{@intervention.building.building_name}), 
     in the battery # #{@intervention.battery_id}, from the column # #{@intervention.column_id}, for the elevator # #{@intervention.elevator_id}. 
     The employee #{@intervention.employee.first_name} #{@intervention.employee.last_name} has been selected for the work.
     Please read the following report: #{@intervention.report} 

@@ -1,4 +1,14 @@
-//=require "jquery-3.3.1.min" 
+//= require jquery
+//= require jquery-3.3.1.min
+//= require scripts
+//= require main
+//= require main-quote
+//= require jquery.themepunch.tools.min
+//= require jquery.themepunch.revolution.min
+//= require demo.revolution_slider
+//= require owl.carousel
+//= require owl.carousel.min
+//= require Chart
 
 $(function col() {
     $("select#intervention_column_id").on("change", function col() {
@@ -32,7 +42,6 @@ $(function build() {
 
 $(function cus() {
     $("select#intervention_customer_id").on("change", function cus() {
-        // console.log(`select#intervention_customer_id`);
         $.ajax({
             url:  "/filter_buildings_by_customer",
             type: "GET",
